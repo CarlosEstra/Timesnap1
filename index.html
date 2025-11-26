@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeSnap - Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <!-- Contenedor principal centrado en pantalla -->
+    <div class="login-wrapper">
+        <!-- Sección del logo y título -->
+        <div class="logo-section">
+            <!-- Logo (usa una imagen o un ícono SVG) -->
+            <img src="logo.png" alt="TimeSnap Logo" class="logo" />
+            <h1 class="title">TimeSnap</h1>
+        </div>
+
+        <!-- Formulario de login -->
+        <form id="loginForm" class="login-form">
+            <!-- Campo del número de empleado -->
+            <label for="employeeNumber">Número de empleado</label>
+            <input
+                type="number"
+                id="employeeNumber"
+                name="employeeNumber"
+                placeholder="Ejemplo: 12"
+                required
+            />
+
+            <!-- Campo de contraseña -->
+            <label for="password">Contraseña</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Contraseña"
+                required
+            />
+
+            <!-- Botón de inicio de sesión -->
+            <button type="submit">
+                Iniciar sesión
+            </button>
+        </form>
+    </div>
+
+    <!-- Cargar el archivo JavaScript -->
+    <script src="login.js"></script>
+</body>
+</html>

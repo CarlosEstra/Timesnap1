@@ -1,0 +1,106 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    background: white;
+    width: 400px;
+    border-radius: 10px;
+    padding-bottom: 80px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    overflow: hidden;
+    margin-bottom: 50px;
+}
+
+.header {
+    background: #5b35ff;
+    height: 80px;
+    width: 500px;
+    position: relative;
+    margin-left: -190px;
+    border-bottom-right-radius:60px;
+}
+
+.profile-pic {
+    width: 110px;
+    height: 110px;
+    background: #d8d8d8;
+    border-radius: 50%;
+    margin-left: 130px;
+    position: absolute;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid white;
+}
+
+.logo {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 70px;
+    margin-right:  -90px;
+}
+
+.info-container {
+    margin-top: 100px;
+    margin-bottom: 80px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.column-left, .column-right {
+    width: 48%;
+    font-size: 14px; 
+    padding: 20px;
+}
+
+.hours-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 15px;
+    margin-top: -60px;
+    font-size: 14px;
+}
+
+p {
+    margin: 6px 0;
+}
+
+span {
+    display: block;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-top: 80px;
+}
+
+.entrada, .salida {
+    width: 150px;
+    padding: 5px;
+    border: none;
+    height: 35px;
+    margin-top: -2px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+}
+
+.entrada {
+    background: #24b34b;
+    
+}
+
+.salida {
+    background: #d9332e;
+}

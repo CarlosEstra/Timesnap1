@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeSnap - Perfil</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+    <div class="card">
+        <div class="header">
+            <div class="profile-pic"></div>
+            <img src="logo.png" class="logo" alt="TimeSnap">
+        </div>
+
+        <div class="info-container">
+            <div class="column-left">
+                <p><strong>Nombre:</strong><br><span id="nombre"></span></p>
+                <p><strong>Puesto:</strong><br><span id="puesto"></span></p>
+                <p><strong>Sucursal:</strong><br><span id="sucursal"></span></p>
+                <p><strong>Fecha actual:</strong><br><span id="fecha"></span></p>
+            </div>
+
+            <div class="column-right">
+                <p><strong>ID:</strong> <span id="idUser">1</span></p>
+                <p><strong>Horario del puesto:</strong><br>
+                    <span id="horario">LUNES - SABADO<br></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="hours-container">
+            <div><p><strong>Hora de entrada:</strong><br><span id="horaEntrada"></div>
+            <div><p><strong>Hora de salida:</strong><br><span id="horaSalida"></span></p></div>
+        </div>
+
+        <div class="buttons">
+            <button class="entrada" onclick="checkIn()">Checar entrada</button>
+            <button class="salida" onclick="checkOut()">Checar salida</button>
+        </div>
+    </div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>

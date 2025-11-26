@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar entrada - TimeSnap</title>
+  <link rel="stylesheet" href="registrar_entrada.css">
+</head>
+<body>
+  <div class="check-wrapper">
+
+    <!-- Header -->
+    <header class="header entrada-header">
+      <h1>ENTRADA</h1>
+    </header>
+
+    <!-- Logo -->
+    <div class="logo">
+      <img src="logo.png" alt="TimeSnap" />
+    </div>
+
+    <p class="instruction">
+      Mantén tu rostro dentro del cuadro, procura que el lugar esté iluminado
+    </p>
+
+    <!-- Cámara -->
+    <div class="camera-box">
+      <video id="video" autoplay playsinline></video>
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <!-- Información de fecha y hora -->
+    <div class="info">
+      <div>
+        <strong>Fecha de hoy:</strong> <span id="currentDate"></span>
+      </div>
+      <div>
+        <strong>Hora de entrada:</strong> <span id="currentTime"></span>
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="buttons">
+      <div class="photo-section">
+        <button class="btn-photo" id="btnCamera">
+          <img src="camara.png" alt="Tomar foto" />
+        </button>
+      </div>
+
+      <div class="confirm-buttons">
+        <button class="btn-red" id="btnCancel">Cancelar</button>
+        <button class="btn-green2" id="btnConfirm">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script compilado TS -->
+  <script src="registrar_entrada.js"></script>
+</body>
+</html>

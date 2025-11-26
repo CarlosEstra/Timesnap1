@@ -1,0 +1,167 @@
+.check-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  background-color: white;
+  width: 400px;
+  height: 700px;
+  margin: 2rem auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ccc;
+  padding: 20px;
+  border-color:#6b2eff;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #6b2eff;
+  margin-top: -20px;
+  color: white;
+  width: 80%;
+  height: 60px;
+  padding: 10px 50px 0px 70px;
+  border-bottom-right-radius:60px;
+  max-width: 180px; 
+  margin-left: -140px;  
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  top: 25px;
+  right: 485px;
+  width: 90px;    /* tamaño pequeño para que quepa */
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  margin: 0;     
+  padding: 0;
+  background: transparent;
+}
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 6px; /* opcional: bordes suaves */
+}
+
+.instruction {
+  margin: 40px 10;
+  margin-top: 70px;
+}
+
+.camera-box {
+  width: 200px;
+  height: 200px;
+  border: 5px solid #6b2eff;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  background-color: transparent; /* quitar gris */
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+}
+
+canvas {
+  display: none; /* solo aparece al tomar foto */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin-top: 25px;
+  gap: 5px;
+}
+
+.buttons {
+  margin-top: 70px;
+  margin-bottom: -90px;
+  right: 10px;
+  width: 80%;
+}
+
+.photo-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -25px;
+}
+
+.confirm-buttons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  margin-top: 0px;
+  margin-left: 40px;
+}
+
+.btn-red {
+  margin-left: 20px;
+}
+
+.btn-photo {
+  background: #ffffff;   
+  border-color: #6b2eff;
+  border: 2px solid #6b2eff;
+  border-radius: 80%; 
+  margin-top: -40;   
+  margin-left: -0.5rem;
+  padding: 7px;
+  cursor: pointer;
+}
+
+.btn-photo img {
+  width: 3rem;
+  height: 3rem;
+  display: block;
+}
+
+.btn-green2{
+  background-color: #067434;
+  color: white;
+  border: none;
+  margin-top: 15px;
+  margin-left: 10;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-red {
+  background-color: #ff1744;
+  color: white;
+  border: none;
+  margin-top: 15px;
+  margin-left: 60;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-green:hover {
+  background-color: #00b44c;
+}
+
+.btn-red:hover {
+  background-color: #e0143a;
+}

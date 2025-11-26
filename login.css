@@ -1,0 +1,106 @@
+/* Estilos generales del contenedor */
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* ocupa toda la pantalla */
+  padding: 20px;
+  background-color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Sección del logo */
+.logo-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* Imagen del logo */
+.logo {
+  width: 90px;
+  height: 90px;
+  margin-bottom: 10px;
+}
+
+/* Título de la app */
+.title {
+  font-size: 26px;
+  color: #0b3c68;
+  font-weight: 600;
+}
+
+/* Formulario */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 320px;
+}
+
+/* Etiquetas */
+label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #222;
+  font-size: 14px;
+}
+
+/* Campos de entrada */
+input {
+  padding: 12px;
+  margin-bottom: 18px;
+  border: 1px solid #713fff;
+  border-radius: 6px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+/* Foco */
+input:focus {
+  border-color: #5a32cc;
+}
+
+/* Botón */
+button {
+  background-color: #713fff;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Efecto hover y tap */
+button:hover,
+button:active {
+  background-color: #5a32cc;
+  transform: scale(0.98);
+}
+
+/* Deshabilitado */
+button:disabled {
+  background-color: #bfaeff;
+  cursor: not-allowed;
+}
+
+/* Adaptación para pantallas pequeñas */
+@media (max-width: 400px) {
+  .title {
+    font-size: 22px;
+  }
+
+  .logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  input,
+  button {
+    font-size: 15px;
+  }
+}
