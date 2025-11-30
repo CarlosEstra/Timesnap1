@@ -6,7 +6,7 @@
   align-items: center;
   height: 100vh; /* ocupa toda la pantalla */
   padding: 20px;
-  background-color: #ffffff;
+  background-color: #020a3a;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -18,15 +18,16 @@
 
 /* Imagen del logo */
 .logo {
-  width: 90px;
-  height: 90px;
-  margin-bottom: 10px;
+  width: 120px;
+  height: 120px;
+  margin-bottom: -20px;
+
 }
 
 /* Título de la app */
 .title {
   font-size: 26px;
-  color: #0b3c68;
+  color: #fafafa;
   font-weight: 600;
 }
 
@@ -42,7 +43,7 @@
 label {
   font-weight: 500;
   margin-bottom: 5px;
-  color: #222;
+  color: #fcf9f9;
   font-size: 14px;
 }
 
@@ -50,7 +51,7 @@ label {
 input {
   padding: 12px;
   margin-bottom: 18px;
-  border: 1px solid #713fff;
+  border: 1px solid #e2deee;
   border-radius: 6px;
   font-size: 16px;
   outline: none;
