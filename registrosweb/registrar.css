@@ -1,0 +1,197 @@
+/* ===========================
+   ESTILOS GENERALES
+=========================== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #020a3a;
+  color: rgb(255, 255, 255);
+}
+
+
+/* ===========================
+   TOPBAR
+=========================== */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #3a89c9;
+  border-bottom: 1px solid #007bff;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.logo-container {
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+}
+
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.actions button {
+  padding: 8px 14px;
+  border: none;
+  background: #007bff;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.actions button:hover {
+  background: #005fcc;
+  transform: scale(1.05);
+}
+
+
+.form-container {
+  margin: 35px auto;
+  width: 92%;
+  max-width: 1050px;
+  display: flex;
+  gap: 40px;
+  background: #020a3a;
+  padding: 30px;
+  border-radius: 14px;
+  
+  
+}
+
+/* ===========================
+   FOTO
+=========================== */
+.photo-section {
+  width: 180px;
+  height: 200px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #020a3a;
+}
+
+.preview {
+  width: 240px;
+  height: 240px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 3px solid #ffffff70;
+  box-shadow: 0 2px 10px #020a3a;
+}
+
+#photoInput {
+  margin-top: 130px;
+  margin-left: -15px;
+  background: #020a3a;
+  padding: 4px;
+  border-radius: 5px;
+  height: 25px;
+  width: 200px;
+  cursor: pointer;
+  color: white;
+}
+
+/* ===========================
+   FORMULARIO CAMPOS
+=========================== */
+form {
+  flex: 1;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+input, select {
+  width: 60%;
+  padding: 7px;
+  border-radius: 7px;
+  border: none;
+  font-size: 15px;
+  outline: none;
+  background: #c4daee;
+  color: #201f1f70;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+  transition: 0.2s;
+}
+
+input:focus, select:focus {
+  border: 2px solid #007bff;
+  box-shadow: 0 0 6px rgba(0,123,255,0.5);
+}
+
+/* ===========================
+   BOTONES PEQUEÑOS
+=========================== */
+.btn-small {
+  margin-top: 6px;
+  background: #007bff;
+  border: none;
+  padding: 6px 10px;
+  color: #020a3a;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+  color: white;
+}
+
+.btn-small:hover {
+  background: #007bff;
+  transform: scale(1.05);
+}
+
+/* ===========================
+   HORARIOS
+=========================== */
+.form-times {
+  display: flex;
+   max-width: 600px;
+   width: 90%;
+  margin-bottom: 10px;
+  
+}
+
+.form-times div {
+  flex: 1;
+}
+
+/* ===========================
+   BOTÓN GUARDAR
+=========================== */
+.btn-guardar {
+  
+  width: 100px;
+  height: 35px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  font-size: 18px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 5px;
+  font-weight: bold;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+  transition: 0.3s;
+  margin-left: 250px;
+  
+}
+
+.btn-guardar:hover {
+  background: #3d8e41;
+  transform: translateY(-2px);
+}

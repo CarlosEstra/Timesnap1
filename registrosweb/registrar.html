@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar Empleado</title>
+  <link rel="stylesheet" href="registrar.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="logo-container">
+        <img src="logo.png" class="logo-img" alt="Logo">
+    </div>
+    <h1 style="color:white;">Registrar Empleado</h1>
+    <div class="actions">
+        <button onclick="window.location.href='empleados.html'"> Volver</button>
+    </div>
+</header>
+
+<div class="form-container">
+
+  <!-- IZQUIERDA: Foto -->
+  <div class="photo-section">
+      <img id="preview" class="preview" src="assets/user-default.png" alt="Foto de perfil">
+      <input type="file" id="photoInput" accept="image/*">
+      
+  </div>
+
+  <!-- DERECHA: Formulario -->
+  <form id="employeeForm">
+
+      <div class="form-group">
+          <label>Nombre(s)</label>
+          <input type="text" id="nombre">
+      </div>
+
+      <div class="form-group">
+          <label>Apellido paterno</label>
+          <input type="text" id="apellidoP">
+      </div>
+
+      <div class="form-group">
+          <label>Apellido materno</label>
+          <input type="text" id="apellidoM">
+      </div>
+
+      <div class="form-group">
+          <label>Sucursal</label>
+          <select id="sucursal">
+            <option value="">Selecciona una</option>
+          </select>
+          <button type="button" class="btn-small" id="addSucursal">Agregar</button>
+      </div>
+
+      <div class="form-group">
+          <label>Puesto</label>
+          <select id="puesto">
+            <option value="">Selecciona un puesto</option>
+            <option value="Intendente">Intendente</option>
+            <option value="Auxiliar General">Auxiliar General</option>
+            <option value="Gerente">Gerente</option>
+            <option value="Administrador">Administrador</option>
+          </select>
+          <button type="button" class="btn-small" id="addPuesto">Agregar</button>
+      </div>
+
+      <div class="form-times">
+          <div style="max-width: 200px;" >
+              <label>Hora entrada</label>
+              <input type="time" id="horaEntrada">
+          </div>
+
+          <div style="max-width: 200px;">
+              <label>Hora salida</label>
+              <input type="time" id="horaSalida">
+          </div>
+      </div>
+
+      <div class="form-times">
+          <div
+          style="max-width: 200px;">
+              <label>Comida (entrada)</label>
+              <input type="time" id="comidaEntrada">
+          </div>
+          <div style="max-width: 200px;">
+              <label>Comida (salida)</label>
+              <input type="time" id="comidaSalida">
+          </div>
+      </div>
+
+      <button type="submit" class="btn-guardar">Registrar</button>
+
+  </form>
+
+</div>
+
+<script src="registrar.js"></script>
+</body>
+</html>

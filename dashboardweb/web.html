@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TimeSnap - Lista de Empleados</title>
+  <link rel="stylesheet" href="web.css">
+</head>
+<body>
+
+  <header class="topbar">
+
+  <!-- Logo -->
+  <div class="logo-container">
+    <img src="logo.png" alt="Logo" class="logo-img">
+  </div>
+
+  <!-- Acciones -->
+  <div class="actions">
+    <button id="deleteSelected">🗑️ Delete</button>
+    <button id="filterBtn">⚙️ Filtros</button>
+  </div>
+
+</header>
+
+
+  <div class="table-container">
+    <table id="empleadosTable">
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="selectAll"></th>
+          <th>Nombre del empleado</th>
+          <th>Puesto</th>
+          <th>Sucursal</th>
+          <th>Fecha</th>
+          <th>Horas trabajadas</th>
+          <th>Estado del empleado</th>
+          <th>Observaciones</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody id="empleadosBody">
+        <!-- Aquí se insertarán los datos dinámicamente -->
+      </tbody>
+    </table>
+  </div>
+
+  <script src="web.js"></script>
+</body>
+</html>
