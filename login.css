@@ -21,6 +21,10 @@
   width: 120px;
   height: 120px;
   margin-bottom: -20px;
+  border-radius: 10px;
+  border:solid 2px;
+  border-color:#020a3a;
+  background-color: #fafafa;
 
 }
 

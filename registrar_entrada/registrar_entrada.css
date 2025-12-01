@@ -4,7 +4,7 @@
   align-items: center;
   text-align: center;
   font-family: 'Arial', sans-serif;
-  background-color: white;
+  background-color: #020a3a;
   width: 400px;
   height: 700px;
   margin: 2rem auto;
@@ -13,15 +13,20 @@
   padding: 20px;
   border-color:#6b2eff;
 }
+.header1 {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
 
 .header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  background-color: #6b2eff;
+  background-color: #007bff;
   margin-top: -20px;
   color: white;
-  width: 80%;
+  width: 100%;
   height: 60px;
   padding: 10px 50px 0px 70px;
   border-bottom-right-radius:60px;
@@ -32,13 +37,13 @@
 
 .logo {
   position: absolute;
-  top: 25px;
-  right: 485px;
-  width: 90px;    /* tamaño pequeño para que quepa */
+  top: 30px;
+  width: 90px;    
   height: 90px;
+  margin-right: 50px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: relative;
+  justify-content: space-between;
   z-index: 10;
   margin: 0;     
   padding: 0;
@@ -54,13 +59,14 @@
 .instruction {
   margin: 40px 10;
   margin-top: 70px;
+  color: #ffffff;
 }
 
 .camera-box {
   width: 200px;
   height: 200px;
-  border: 5px solid #6b2eff;
-  border-radius: 10px;
+  border: 5px solid #007bff;
+  border-radius: 50px;
   overflow: hidden;
   position: relative;
   background-color: transparent; /* quitar gris */
@@ -89,6 +95,7 @@ canvas {
   width: 90%;
   margin-top: 25px;
   gap: 5px;
+  color: #ffffff;
 }
 
 .buttons {
@@ -118,9 +125,9 @@ canvas {
 }
 
 .btn-photo {
-  background: #ffffff;   
-  border-color: #6b2eff;
-  border: 2px solid #6b2eff;
+  background: #020a3a;   
+  border-color: #007bff;
+  border: 2px solid #007bff;
   border-radius: 80%; 
   margin-top: -40;   
   margin-left: -0.5rem;
@@ -135,7 +142,7 @@ canvas {
 }
 
 .btn-green2{
-  background-color: #067434;
+  background-color: #007bff;
   color: white;
   border: none;
   margin-top: 15px;

@@ -8,28 +8,33 @@ body {
 }
 
 .card {
-    background: white;
+    background: #020a3a;
     width: 400px;
+    height: 100%;
     border-radius: 10px;
     padding-bottom: 80px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     overflow: hidden;
     margin-bottom: 50px;
+    
 }
 
 .header {
-    background: #5b35ff;
+    background: #020a3a;
+    margin-bottom: 50px;
     height: 80px;
     width: 500px;
-    position: relative;
+    position: relative; 
     margin-left: -190px;
     border-bottom-right-radius:60px;
+    color: #f4f4f4;
+    
 }
 
 .profile-pic {
     width: 110px;
     height: 110px;
-    background: #d8d8d8;
+    background: #fdfdfd;
     border-radius: 50%;
     margin-left: 130px;
     position: absolute;
@@ -43,7 +48,7 @@ body {
     position: absolute;
     right: 10px;
     top: 10px;
-    width: 70px;
+    width: 100px;
     margin-right:  -90px;
 }
 
@@ -53,6 +58,7 @@ body {
     display: flex;
     justify-content: space-between;
     padding: 10px;
+    color: #ffffff;
 }
 
 .column-left, .column-right {
@@ -67,6 +73,7 @@ body {
     padding: 18px 15px;
     margin-top: -60px;
     font-size: 14px;
+    color: #ffffff;
 }
 
 p {
@@ -89,18 +96,35 @@ span {
     padding: 5px;
     border: none;
     height: 35px;
-    margin-top: -2px;
+    margin-top: -30px;
     font-size: 14px;
     border-radius: 6px;
     cursor: pointer;
-    color: white;
+    color: #ffffff;
 }
 
 .entrada {
-    background: #24b34b;
+    background: #007bff;
     
 }
 
 .salida {
     background: #d9332e;
+}
+
+/* Adaptación para pantallas pequeñas */
+@media (max-width: 400px) {
+  .title {
+    font-size: 22px;
+  }
+
+  .logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  input,
+  button {
+    font-size: 15px;
+  }
 }
