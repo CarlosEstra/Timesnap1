@@ -92,10 +92,19 @@ async function onLogin(event) {
         if (response.ok && data.success) {
             // INICIO DE SESIÓN EXITOSO
             console.log('Inicio de sesión exitoso ✅');
-            displayMessage(`¡Inicio de sesión exitoso! Redirigiendo a Dashboard...`, true);
-            
-            // ⚠️ Redirección a la ruta de dashboard (debe ser la ruta de Flask)
-            window.location.href = 'http://127.0.0.1:5000/dashboard'; 
+
+            // Verificar si es administrador (id_puestos = '3')
+            const isAdmin = data.puesto === '3'; // Asumiendo que se devuelve como string
+
+            if (isAdmin) {
+                displayMessage(`¡Inicio de sesión exitoso! Redirigiendo al Dashboard...`, true);
+                // Redirección al dashboard para administradores
+                window.location.href = 'dashboardweb/web.html';
+            } else {
+                displayMessage(`¡Inicio de sesión exitoso! Redirigiendo a Registrar Entrada...`, true);
+                // Redirección a la página HTML de registrar entrada para empleados normales
+                window.location.href = 'registrar_entrada/registrar_entrada.html';
+            }
             
         } else {
             // FALLO EN LA AUTENTICACIÓN (Código 401, 503, etc.)

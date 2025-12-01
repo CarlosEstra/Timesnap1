@@ -1,35 +1,17 @@
-from flask import Flask, request, jsonify, session
-import mysql.connector
+from flask import Flask, request, jsonify, session, send_from_directory
 from datetime import datetime
 import base64
 import io
 from flask_cors import CORS
+from db_connection import get_db_connection
 
 # Inicialización de la aplicación Flask
 app = Flask(__name__)
-CORS(app) 
+CORS(app)
 
 # --- CONFIGURACIÓN DE SESIÓN ---
 # ⚠️ Cambia esta clave. Necesaria para Flask Sessions.
-app.secret_key = '123456789' 
-
-# --- 1. CONFIGURACIÓN Y CONEXIÓN A MYSQL ---
-DB_CONFIG = {
-    # ⚠️ ASEGÚRATE de que estos datos son correctos.
-    'user': 'root',
-    'password': '140223',
-    'host': 'localhost',
-    'database': 'timesnapbd' 
-}
-
-
-def get_db_connection():
-    """Establece y devuelve una nueva conexión a la DB."""
-    try:
-        return mysql.connector.connect(**DB_CONFIG)
-    except mysql.connector.Error as err:
-        print(f"❌ Error al conectar a MySQL: {err}")
-        return None
+app.secret_key = '123456789'
 
 # ----------------------------------------------------------------------
 # 2. Ruta de Login por ID y Contraseña
@@ -65,11 +47,14 @@ def login():
             session['username'] = empleado['nombre']
             session['puesto'] = empleado['id_puestos']
             
-            return jsonify({
-                'success': True, 
-                'message': f'Bienvenido(a), {empleado["nombre"]}.', 
-                'user_id': empleado['id_empleado']
-            })
+            response_data = {
+                'success': True,
+                'message': f'Bienvenido(a), {empleado["nombre"]}.',
+                'user_id': empleado['id_empleado'],
+                'puesto': empleado['id_puestos']
+            }
+            print(f"Login exitoso para {empleado['nombre']}, puesto: {empleado['id_puestos']}")
+            return jsonify(response_data)
         
         else:
             return jsonify({'success': False, 'message': 'ID de empleado o contraseña incorrectos.'}), 401
@@ -136,7 +121,19 @@ def logout():
     session.clear()
     return jsonify({'success': True, 'message': 'Sesión cerrada.'})
 
+# ----------------------------------------------------------------------
+# RUTAS PARA SERVIR ARCHIVOS ESTÁTICOS
+# ----------------------------------------------------------------------
+
+@app.route('/')
+def index():
+    return send_from_directory('.', 'index.html')
+
+@app.route('/<path:path>')
+def static_file(path):
+    return send_from_directory('.', path)
+
 
 if __name__ == '__main__':
-    print("Servidor Flask corriendo en http://127.0.0.1:5500/")
-    app.run(debug=True, port=5000)
+    print("Servidor Flask corriendo en http://127.0.0.1:5000/")
+    app.run(debug=True, port=5000, host='0.0.0.0')
