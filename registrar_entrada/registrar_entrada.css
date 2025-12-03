@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  font-family: 'Arial', sans-serif;
+  /* font-family now handled by global.css */
   background-color: #020a3a;
   width: 400px;
   height: 700px;

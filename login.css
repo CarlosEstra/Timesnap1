@@ -7,7 +7,7 @@
   height: 100vh; /* ocupa toda la pantalla */
   padding: 20px;
   background-color: #020a3a;
-  font-family: 'Poppins', sans-serif;
+  /* font-family now handled by global.css */
 }
 
 /* Sección del logo */

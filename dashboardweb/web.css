@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  /* font-family now handled by global.css */
   background: #020a3a;
 }
 

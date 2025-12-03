@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrar Salida - TimeSnap</title>
+  <link rel="stylesheet" href="../global.css">
   <link rel="stylesheet" href="registrar_salida.css">
 </head>
 <body>
@@ -52,6 +53,47 @@
       </div>
     </div>
   </div>
+
+<!-- Face API Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+<script>
+  // Cargar modelos de face-api.js
+  async function loadModels() {
+    try {
+      // Intentar con diferentes URLs de modelos
+      const urls = [
+        'https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/weights/',
+        'https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.2.0/model/',
+        'https://raw.githubusercontent.com/justadudewhohacks/face-api.js/master/weights/'
+      ];
+
+      for (const baseUrl of urls) {
+        try {
+          console.log('Intentando cargar modelos desde:', baseUrl);
+          await Promise.all([
+            faceapi.nets.tinyFaceDetector.loadFromUri(baseUrl),
+            faceapi.nets.faceLandmark68Net.loadFromUri(baseUrl),
+            faceapi.nets.faceRecognitionNet.loadFromUri(baseUrl)
+          ]);
+          console.log('✅ Modelos de face-api.js cargados exitosamente desde:', baseUrl);
+          return true;
+        } catch (urlError) {
+          console.warn('URL falló:', baseUrl, urlError);
+          continue;
+        }
+      }
+
+      console.error('❌ No se pudieron cargar los modelos desde ninguna URL');
+      return false;
+    } catch (error) {
+      console.error('❌ Error cargando modelos de face-api.js:', error);
+      return false;
+    }
+  }
+
+  // Iniciar carga de modelos
+  loadModels();
+</script>
 
   <!-- Script compilado TS -->
   <script src="registrar_salida.js"></script>

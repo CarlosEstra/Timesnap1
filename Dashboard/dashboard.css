@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    /* font-family now handled by global.css */
     background: #f4f4f4;
     margin: 0;
     padding: 20px;
