@@ -18,9 +18,14 @@
 
   <!-- Acciones -->
   <div class="actions">
+    <select id="filtroFecha" class="filter-select">
+      <option value="hoy">📅 Hoy</option>
+      <option value="semana">📅 Esta Semana</option>
+      <option value="quincena">📅 Quincena Pasada</option>
+    </select>
     <button onclick="window.location.href='../registrosweb/registrar.html'">👤 Registrar Empleado</button>
+    <button id="editSelected">✏️ Edit</button>
     <button id="deleteSelected">🗑️ Delete</button>
-    <button id="filterBtn">⚙️ Filtros</button>
   </div>
 
 </header>
@@ -46,6 +51,77 @@
         <!-- Aquí se insertarán los datos dinámicamente -->
       </tbody>
     </table>
+  </div>
+
+  <!-- Modal de Edición -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>✏️ Editar Empleado</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="editForm">
+          <input type="hidden" id="editEmployeeId">
+
+          <div class="form-group">
+            <label>Nombre(s)</label>
+            <input type="text" id="editNombre" required>
+          </div>
+
+          <div class="form-group">
+            <label>Apellido paterno</label>
+            <input type="text" id="editApellidoP" required>
+          </div>
+
+          <div class="form-group">
+            <label>Apellido materno</label>
+            <input type="text" id="editApellidoM">
+          </div>
+
+          <div class="form-group">
+            <label>Sucursal</label>
+            <select id="editSucursal" required>
+              <option value="">Selecciona una</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Puesto</label>
+            <select id="editPuesto" required>
+              <option value="">Selecciona un puesto</option>
+            </select>
+          </div>
+
+          <div class="form-times">
+            <div>
+              <label>Hora entrada</label>
+              <input type="time" id="editHoraEntrada">
+            </div>
+            <div>
+              <label>Hora salida</label>
+              <input type="time" id="editHoraSalida">
+            </div>
+          </div>
+
+          <div class="form-times">
+            <div>
+              <label>Comida (entrada)</label>
+              <input type="time" id="editComidaEntrada">
+            </div>
+            <div>
+              <label>Comida (salida)</label>
+              <input type="time" id="editComidaSalida">
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" id="cancelEdit">❌ Cancelar</button>
+            <button type="submit">💾 Guardar Cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 
   <script src="web.js"></script>

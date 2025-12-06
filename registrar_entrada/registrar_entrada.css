@@ -37,12 +37,12 @@
 
 .logo {
   position: absolute;
-  top: 30px;
+  top: 5px;
   width: 90px;    
   height: 90px;
   margin-right: 50px;
   display: flex;
-  align-items: relative;
+  align-items: absolute;
   justify-content: space-between;
   z-index: 10;
   margin: 0;     
