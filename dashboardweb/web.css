@@ -59,6 +59,12 @@ body {
   color: white;
 }
 
+.filters {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
 .table-container {
   padding: 20px;
 }
@@ -232,4 +238,87 @@ tbody tr:hover {
 .filter-select:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Modal de Notificaciones */
+.large-modal {
+  max-width: 1000px;
+  width: 95%;
+}
+
+.notifications-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.total-counter {
+  font-weight: bold;
+  color: #dc3545;
+  font-size: 16px;
+}
+
+.notifications-container {
+  max-height: 500px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+#notificationsTable {
+  width: 100%;
+  margin: 0;
+}
+
+#notificationsTable th {
+  position: sticky;
+  top: 0;
+  background: #3a89c9;
+  z-index: 10;
+}
+
+#notificationsTable td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+#notificationsTable tbody tr:hover {
+  background: #fff3cd;
+}
+
+.close-notifications {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-notifications:hover {
+  color: white;
+}
+
+/* Badges de retraso */
+.retraso-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+}
+
+.retraso-badge.normal {
+  background: #ffc107; /* Amarillo para retrasos menores */
+  color: #000;
+}
+
+.retraso-badge.moderate {
+  background: #fd7e14; /* Naranja para retrasos moderados */
+}
+
+.retraso-badge.severe {
+  background: #dc3545; /* Rojo para retrasos severos */
 }

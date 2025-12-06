@@ -739,6 +739,112 @@ def get_empleado_facial_actual():
         if mycursor: mycursor.close()
         if mydb.is_connected(): mydb.close()
 
+@app.route('/get_notificaciones_retrasos', methods=['POST'])
+def get_notificaciones_retrasos():
+    data = request.json
+    filtro = data.get('filtro')  # 'hoy', 'semana', 'quincena'
+
+    hoy = date.today()
+    fecha_inicio = hoy
+    fecha_fin = hoy
+
+    # 1. Definir rangos de fecha
+    if filtro == 'hoy':
+        fecha_inicio = hoy
+        fecha_fin = hoy
+    elif filtro == 'semana':
+        # Asumiendo que la semana empieza el Lunes (0)
+        start_delta = hoy.weekday()
+        fecha_inicio = hoy - timedelta(days=start_delta)
+        fecha_fin = fecha_inicio + timedelta(days=6)
+    elif filtro == 'quincena':
+        # Lógica corregida: Mostrar la quincena pasada completa
+        if hoy.day > 15:
+            # Estamos en segunda quincena, mostrar primera quincena del mes actual
+            fecha_inicio = date(hoy.year, hoy.month, 1)
+            fecha_fin = date(hoy.year, hoy.month, 15)
+        else:
+            # Estamos en primera quincena, mostrar segunda quincena del mes anterior
+            primer_dia_mes = date(hoy.year, hoy.month, 1)
+            ultimo_dia_mes_anterior = primer_dia_mes - timedelta(days=1)
+            fecha_inicio = date(ultimo_dia_mes_anterior.year, ultimo_dia_mes_anterior.month, 16)
+            fecha_fin = ultimo_dia_mes_anterior
+
+    mydb = get_db_connection()
+    if not mydb:
+        return jsonify({'success': False, 'message': 'Error DB'}), 500
+
+    mycursor = mydb.cursor(dictionary=True)
+
+    try:
+        # Consulta para obtener retrasos de llegada (sin duplicados)
+        sql = """
+            SELECT DISTINCT
+                e.id_empleado,
+                CONCAT(e.nombre, ' ', COALESCE(e.apellido1, ''), ' ', COALESCE(e.apellido2, '')) as nombre_completo,
+                COALESCE(p.nombre_puestos, 'Sin puesto') as puesto,
+                COALESCE(s.nombre, 'Sin sucursal') as sucursal,
+                ra.fecha,
+                ra.hora as hora_entrada_real,
+                e.hora_entrada_puesto as hora_entrada_oficial,
+                TIMESTAMPDIFF(MINUTE, e.hora_entrada_puesto, ra.hora) as minutos_retraso
+            FROM empleados e
+            LEFT JOIN puestos p ON e.id_puestos = p.id_puestos
+            LEFT JOIN sucursal s ON e.id_sucursal = s.id_sucursal
+            INNER JOIN registros_asistencia ra ON ra.id_empleado = e.id_empleado
+                AND ra.tipo = 'entrada'
+                AND ra.fecha BETWEEN %s AND %s
+            WHERE ra.hora IS NOT NULL
+                AND e.hora_entrada_puesto IS NOT NULL
+                AND ra.hora > e.hora_entrada_puesto
+            ORDER BY ra.fecha DESC, minutos_retraso DESC
+        """
+
+        mycursor.execute(sql, (fecha_inicio, fecha_fin))
+        retrasos = mycursor.fetchall()
+
+        # Formatear fechas para enviarlas al frontend
+        rango_texto = f"{fecha_inicio.strftime('%d/%m/%Y')}"
+        if filtro != 'hoy':
+            rango_texto += f" al {fecha_fin.strftime('%d/%m/%Y')}"
+
+        # Formatear retrasos para el frontend
+        retrasos_formateados = []
+        for retraso in retrasos:
+            horas_retraso = retraso['minutos_retraso'] // 60
+            minutos_retraso = retraso['minutos_retraso'] % 60
+
+            tiempo_retraso_texto = ""
+            if horas_retraso > 0:
+                tiempo_retraso_texto += f"{horas_retraso}h "
+            if minutos_retraso > 0:
+                tiempo_retraso_texto += f"{minutos_retraso}min"
+
+            retrasos_formateados.append({
+                'id_empleado': retraso['id_empleado'],
+                'nombre': retraso['nombre_completo'].strip(),
+                'puesto': retraso['puesto'],
+                'sucursal': retraso['sucursal'],
+                'fecha': retraso['fecha'].strftime('%d/%m/%Y') if retraso['fecha'] else '',
+                'hora_entrada_real': str(retraso['hora_entrada_real']) if retraso['hora_entrada_real'] else '',
+                'hora_entrada_oficial': str(retraso['hora_entrada_oficial']) if retraso['hora_entrada_oficial'] else '',
+                'minutos_retraso': retraso['minutos_retraso'],
+                'tiempo_retraso': tiempo_retraso_texto.strip()
+            })
+
+        return jsonify({
+            'success': True,
+            'retrasos': retrasos_formateados,
+            'rango_fecha': rango_texto,
+            'total_retrasos': len(retrasos_formateados)
+        })
+
+    except Exception as err:
+        return jsonify({'success': False, 'message': str(err)}), 500
+    finally:
+        if mycursor: mycursor.close()
+        if mydb.is_connected(): mydb.close()
+
 @app.route('/get_asistencia_filtrada', methods=['POST'])
 def get_asistencia_filtrada():
     data = request.json

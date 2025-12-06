@@ -16,20 +16,30 @@
     <img src="logo.png" alt="Logo" class="logo-img">
   </div>
 
-  <!-- Acciones -->
-  <div class="actions">
+  <!-- Filtros -->
+  <div class="filters">
     <select id="filtroFecha" class="filter-select">
       <option value="hoy">📅 Hoy</option>
       <option value="semana">📅 Esta Semana</option>
       <option value="quincena">📅 Quincena Pasada</option>
     </select>
+    <select id="filtroPuesto" class="filter-select">
+      <option value="">Todos los puestos</option>
+    </select>
+    <select id="filtroSucursal" class="filter-select">
+      <option value="">Todas las sucursales</option>
+    </select>
+  </div>
+
+  <!-- Acciones -->
+  <div class="actions">
     <button onclick="window.location.href='../registrosweb/registrar.html'">👤 Registrar Empleado</button>
+    <button id="showNotifications">🔔 Notificaciones</button>
     <button id="editSelected">✏️ Edit</button>
     <button id="deleteSelected">🗑️ Delete</button>
   </div>
 
 </header>
-
 
   <div class="table-container">
     <table id="empleadosTable">
@@ -120,6 +130,49 @@
             <button type="submit">💾 Guardar Cambios</button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Notificaciones -->
+  <div id="notificationsModal" class="modal">
+    <div class="modal-content large-modal">
+      <div class="modal-header">
+        <h2>🔔 Notificaciones de Retrasos</h2>
+        <span class="close-notifications">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="notifications-controls">
+          <select id="filtroNotificaciones" class="filter-select">
+            <option value="hoy">📅 Hoy</option>
+            <option value="semana">📅 Esta Semana</option>
+            <option value="quincena">📅 Quincena Pasada</option>
+          </select>
+          <div id="totalRetrasos" class="total-counter">Total: 0 retrasos</div>
+        </div>
+
+        <div class="notifications-container">
+          <table id="notificationsTable">
+            <thead>
+              <tr>
+                <th>Empleado</th>
+                <th>Puesto</th>
+                <th>Sucursal</th>
+                <th>Fecha</th>
+                <th>Hora Oficial</th>
+                <th>Hora Real</th>
+                <th>Retraso</th>
+              </tr>
+            </thead>
+            <tbody id="notificationsBody">
+              <tr>
+                <td colspan="7" style="text-align: center; padding: 20px;">
+                  Selecciona un período para ver las notificaciones
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
