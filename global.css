@@ -8,3 +8,71 @@
 body {
   font-family: 'Roboto', sans-serif;
 }
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 15px;
+  }
+
+  .topbar h1 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+
+  .actions {
+    margin-top: 10px;
+  }
+
+  .table-container {
+    padding: 10px;
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 600px; /* Ensure table doesn't shrink too much */
+  }
+
+  .modal-content {
+    width: 95%;
+    max-width: none;
+    margin: 10% auto;
+  }
+
+  .modal-body {
+    padding: 15px;
+  }
+
+  .form-times {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .modal-actions button {
+    width: 100%;
+  }
+
+  .filters {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .notifications-controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .large-modal {
+    width: 98%;
+    max-width: none;
+  }
+}

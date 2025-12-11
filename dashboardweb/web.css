@@ -59,6 +59,21 @@ body {
   color: white;
 }
 
+.logout-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 7px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.logout-btn:hover {
+  background: #c82333;
+}
+
 .filters {
   display: flex;
   gap: 10px;
@@ -244,8 +259,16 @@ tbody tr:hover {
 
 /* Modal de Notificaciones */
 .large-modal {
-  max-width: 1000px;
-  width: 95%;
+  max-width: 1200px;
+  width: 98%;
+  max-height: 90vh;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.large-modal::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
 }
 
 .notifications-controls {
@@ -323,4 +346,143 @@ tbody tr:hover {
 
 .retraso-badge.severe {
   background: #dc3545; /* Rojo para retrasos severos */
+}
+
+/* Report Modal Styles */
+.report-controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.date-range {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.date-range label {
+  font-weight: bold;
+}
+
+.date-range input[type="date"] {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.date-range button {
+  padding: 7px 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.date-range button:hover {
+  background: #0056b3;
+}
+
+.report-container {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+#reportTable {
+  width: 100%;
+  margin: 0;
+}
+
+#reportTable th {
+  position: sticky;
+  top: 0;
+  background: #3a89c9;
+  z-index: 10;
+}
+
+#reportTable td {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+#reportTable tbody tr:hover {
+  background: #fff3cd;
+}
+
+.report-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.report-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#markSelected {
+  background: #28a745;
+  color: white;
+}
+
+#markSelected:hover {
+  background: #218838;
+}
+
+#downloadPDF {
+  background: #dc3545;
+  color: white;
+}
+
+#downloadPDF:hover {
+  background: #c82333;
+}
+
+/* Charts Styles */
+.charts-container {
+  margin-top: 30px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.charts-container h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.chart-item {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.chart-item h4 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #555;
+  font-size: 16px;
+}
+
+.chart-item canvas {
+  max-width: 100%;
+  height: 250px;
 }

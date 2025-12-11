@@ -11,6 +11,9 @@
 
   <header class="topbar">
 
+  <!-- Logout Button -->
+  <button onclick="logout()" class="logout-btn">Cerrar Sesión</button>
+
   <!-- Logo -->
   <div class="logo-container">
     <img src="logo.png" alt="Logo" class="logo-img">
@@ -35,6 +38,7 @@
   <div class="actions">
     <button onclick="window.location.href='../registrosweb/registrar.html'">👤 Registrar Empleado</button>
     <button id="showNotifications">🔔 Notificaciones</button>
+    <button id="generateReport">📊 Generar Reporte</button>
     <button id="editSelected">✏️ Edit</button>
     <button id="deleteSelected">🗑️ Delete</button>
   </div>
@@ -160,7 +164,7 @@
                 <th>Sucursal</th>
                 <th>Fecha</th>
                 <th>Hora Oficial</th>
-                <th>Hora Real</th>
+                <th>Hora Llegada</th>
                 <th>Retraso</th>
               </tr>
             </thead>
@@ -177,6 +181,80 @@
     </div>
   </div>
 
+  <!-- Modal de Reportes -->
+  <div id="reportModal" class="modal">
+    <div class="modal-content large-modal">
+      <div class="modal-header">
+        <h2>📊 Generar Reporte de Retrasos</h2>
+        <span class="close-report">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="report-controls">
+          <div class="date-range">
+            <label>Desde:</label>
+            <input type="date" id="reportFechaInicio">
+            <label>Hasta:</label>
+            <input type="date" id="reportFechaFin">
+            <button id="generateReportBtn">🔍 Generar Reporte</button>
+          </div>
+        </div>
+
+        <div class="report-container">
+          <table id="reportTable">
+            <thead>
+              <tr>
+                <th><input type="checkbox" id="selectAllReport"></th>
+                <th>Empleado</th>
+                <th>Puesto</th>
+                <th>Sucursal</th>
+                <th>Fecha</th>
+                <th>Hora Oficial</th>
+                <th>Hora Llegada</th>
+                <th>Retraso</th>
+                <th>Marcado</th>
+              </tr>
+            </thead>
+            <tbody id="reportBody">
+              <tr>
+                <td colspan="9" style="text-align: center; padding: 20px;">
+                  Selecciona un rango de fechas y genera el reporte
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="charts-container">
+          <h3>📈 Gráficas del Reporte</h3>
+          <div class="charts-grid">
+            <div class="chart-item">
+              <h4>Retrasos por Empleado</h4>
+              <canvas id="chartEmpleados"></canvas>
+            </div>
+            <div class="chart-item">
+              <h4>Severidad de Retrasos</h4>
+              <canvas id="chartSeveridad"></canvas>
+            </div>
+            <div class="chart-item">
+              <h4>Retrasos por Día</h4>
+              <canvas id="chartTiempo"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-actions">
+          <button id="markSelected">✅ Marcar Seleccionados</button>
+          <button id="downloadPDF">📄 Descargar PDF</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart.js for graphs -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- jsPDF and html2canvas for PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="web.js"></script>
 </body>
 </html>

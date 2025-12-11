@@ -845,6 +845,85 @@ def get_notificaciones_retrasos():
         if mycursor: mycursor.close()
         if mydb.is_connected(): mydb.close()
 
+@app.route('/get_retrasos_rango', methods=['POST'])
+def get_retrasos_rango():
+    data = request.json
+    fecha_inicio = data.get('fecha_inicio')
+    fecha_fin = data.get('fecha_fin')
+
+    if not fecha_inicio or not fecha_fin:
+        return jsonify({'success': False, 'message': 'Fechas requeridas.'}), 400
+
+    mydb = get_db_connection()
+    if not mydb:
+        return jsonify({'success': False, 'message': 'Error DB'}), 500
+
+    mycursor = mydb.cursor(dictionary=True)
+
+    try:
+        # Consulta para obtener retrasos en el rango de fechas
+        sql = """
+            SELECT DISTINCT
+                e.id_empleado,
+                CONCAT(e.nombre, ' ', COALESCE(e.apellido1, ''), ' ', COALESCE(e.apellido2, '')) as nombre_completo,
+                COALESCE(p.nombre_puestos, 'Sin puesto') as puesto,
+                COALESCE(s.nombre, 'Sin sucursal') as sucursal,
+                ra.fecha,
+                ra.hora as hora_entrada_real,
+                e.hora_entrada_puesto as hora_entrada_oficial,
+                TIMESTAMPDIFF(MINUTE, e.hora_entrada_puesto, ra.hora) as minutos_retraso,
+                0 as marcado  -- Campo para marcar retrasos
+            FROM empleados e
+            LEFT JOIN puestos p ON e.id_puestos = p.id_puestos
+            LEFT JOIN sucursal s ON e.id_sucursal = s.id_sucursal
+            INNER JOIN registros_asistencia ra ON ra.id_empleado = e.id_empleado
+                AND ra.tipo = 'entrada'
+                AND ra.fecha BETWEEN %s AND %s
+            WHERE ra.hora IS NOT NULL
+                AND e.hora_entrada_puesto IS NOT NULL
+                AND ra.hora > e.hora_entrada_puesto
+            ORDER BY ra.fecha DESC, minutos_retraso DESC
+        """
+
+        mycursor.execute(sql, (fecha_inicio, fecha_fin))
+        retrasos = mycursor.fetchall()
+
+        # Formatear fechas y tiempos
+        retrasos_formateados = []
+        for retraso in retrasos:
+            horas_retraso = retraso['minutos_retraso'] // 60
+            minutos_retraso = retraso['minutos_retraso'] % 60
+
+            tiempo_retraso_texto = ""
+            if horas_retraso > 0:
+                tiempo_retraso_texto += f"{horas_retraso}h "
+            if minutos_retraso > 0:
+                tiempo_retraso_texto += f"{minutos_retraso}min"
+
+            retrasos_formateados.append({
+                'id_empleado': retraso['id_empleado'],
+                'nombre_completo': retraso['nombre_completo'].strip(),
+                'puesto': retraso['puesto'],
+                'sucursal': retraso['sucursal'],
+                'fecha': retraso['fecha'].strftime('%d/%m/%Y') if retraso['fecha'] else '',
+                'hora_entrada_real': str(retraso['hora_entrada_real']) if retraso['hora_entrada_real'] else '',
+                'hora_entrada_oficial': str(retraso['hora_entrada_oficial']) if retraso['hora_entrada_oficial'] else '',
+                'minutos_retraso': retraso['minutos_retraso'],
+                'tiempo_retraso': tiempo_retraso_texto.strip(),
+                'marcado': retraso['marcado']
+            })
+
+        return jsonify({
+            'success': True,
+            'retrasos': retrasos_formateados
+        })
+
+    except Exception as err:
+        return jsonify({'success': False, 'message': str(err)}), 500
+    finally:
+        if mycursor: mycursor.close()
+        if mydb.is_connected(): mydb.close()
+
 @app.route('/get_asistencia_filtrada', methods=['POST'])
 def get_asistencia_filtrada():
     data = request.json
