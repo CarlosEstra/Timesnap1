@@ -74,7 +74,7 @@ body {
 table {
   width: 100%;
   border-collapse: collapse;
-  background: #3a89c9;
+  background: #ffffff;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -82,13 +82,14 @@ table {
 th, td {
   padding: 12px 10px;
   font-size: 14px;
+  text-align: center;
   border-bottom: 1px solid #3a89c9;
   color: #333;
 }
 
 th {
   background: #3a89c9;
-  text-align: left;
+  text-align: center;
   font-weight: bold;
   color: #fdfdfd;
 }
@@ -132,8 +133,8 @@ tbody tr:hover {
   margin: 5% auto;
   padding: 0;
   border: 1px solid #888;
-  width: 90%;
-  max-width: 600px;
+  width: 80%;
+  max-width: 700px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -186,6 +187,7 @@ tbody tr:hover {
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 .form-times {
@@ -214,7 +216,7 @@ tbody tr:hover {
 }
 
 .modal-actions button[type="button"] {
-  background: #6c757d;
+  background: #e53935;
   color: white;
 }
 

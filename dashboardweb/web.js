@@ -72,7 +72,7 @@ function cargarTabla(listaEmpleados, rangoFecha = '') {
       <td style="font-weight: bold;">${emp.puesto || 'N/A'}</td>
       <td style="font-weight: bold;">${emp.sucursal || 'N/A'}</td>
       <td style="font-weight: bold;">${rangoFecha}</td>
-      <td style="font-weight: bold;">${emp.horas_trabajadas || 0} hrs</td>
+      <td style="font-weight: bold;">${emp.horas_trabajadas || 0}</td>
       <td>
         <span class="badge green">Activo</span>
       </td>
