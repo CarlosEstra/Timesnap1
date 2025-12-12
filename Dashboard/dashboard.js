@@ -63,6 +63,22 @@ async function cargarDatosUsuario() {
             document.getElementById("horario").innerHTML = `LUNES - SABADO<br>${formatTimeTo12Hour(emp.hora_entrada)} - ${formatTimeTo12Hour(emp.hora_salida)}`;
             document.getElementById("horaEntrada").textContent = formatTimeTo12Hour(emp.hora_entrada) || 'N/A';
             document.getElementById("horaSalida").textContent = formatTimeTo12Hour(emp.hora_salida) || 'N/A';
+
+            // Mostrar foto de perfil si existe
+            if (emp.fotoperfil) {
+                // Si es un string que comienza con "data:image", es base64
+                if (typeof emp.fotoperfil === 'string' && emp.fotoperfil.startsWith('data:image')) {
+                    const profilePic = document.querySelector('.profile-pic');
+                    profilePic.style.backgroundImage = `url(${emp.fotoperfil})`;
+                    console.log('Foto de perfil cargada para empleado:', emp.nombre);
+                } else {
+                    console.log('Foto de perfil presente pero no en formato imagen:', emp.fotoperfil);
+                    // Mantener el fondo blanco por defecto
+                }
+            } else {
+                console.log('No hay foto de perfil para este empleado:', emp.nombre);
+                // Mantener el fondo blanco por defecto
+            }
         } else {
             console.error('❌ Error cargando datos del empleado:', data.message);
             alert('Error al cargar datos del empleado: ' + data.message);

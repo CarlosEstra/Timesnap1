@@ -103,11 +103,26 @@ window.addEventListener('DOMContentLoaded', () => {
             console.log('📡 Datos recibidos:', data);
             if (data.success) {
                 const emp = data.empleado;
+                let descriptor = null;
+                if (emp.fotoperfil) {
+                    try {
+                        descriptor = new Float32Array(JSON.parse(emp.fotoperfil));
+                    } catch (parseError) {
+                        console.error('Error parsing fotoperfil:', parseError);
+                        descriptor = null;
+                    }
+                }
                 knownFaces = [{
                     id_empleado: emp.id_empleado,
                     nombre: emp.nombre,
-                    descriptor: emp.fotoperfil ? new Float32Array(JSON.parse(emp.fotoperfil)) : null
-                }].filter(emp => emp.descriptor !== null);
+                    descriptor: descriptor
+                }].filter(face => face.descriptor !== null);
+
+                if (knownFaces.length === 0) {
+                    console.error('No hay descriptor facial válido para el empleado');
+                    alert('❌ Error: Los datos faciales están corruptos. Contacta al administrador.');
+                    return false;
+                }
 
                 console.log(`✅ Cargado rostro del empleado actual: ${emp.nombre}`);
                 return true;
@@ -209,7 +224,9 @@ window.addEventListener('DOMContentLoaded', () => {
     // Inicializar aplicación
     async function initializeApp() {
         await startCamera();
-        await loadCurrentUserFace();
+        if (!await loadCurrentUserFace()) {
+            return; // Ya loadCurrentUserFace hizo alert y redirect
+        }
     }
 
     initializeApp();

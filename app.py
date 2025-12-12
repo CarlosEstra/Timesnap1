@@ -50,7 +50,7 @@ def login():
     try:
         # 1. Búsqueda directa por id_empleado y password
         # La consulta usa los campos EXACTOS de la tabla: id_empleado y password (texto plano)
-        sql = "SELECT id_empleado, nombre, id_puestos FROM empleados WHERE id_empleado = %s AND contraseña = %s"
+        sql = "SELECT id_empleado, nombre, id_puestos FROM empleados WHERE id_empleado = %s AND contrasena = %s"
         mycursor.execute(sql, (employee_id, password)) 
         empleado = mycursor.fetchone()
 
@@ -332,10 +332,13 @@ def registrar_empleado_real():
     hora_comida_entrada = data.get('comidaEntrada')
     hora_comida_salida = data.get('comidaSalida')
     face_descriptor = data.get('faceDescriptor')  # Descriptor facial
+    photoData = data.get('photoData')  # Datos de la foto
 
     print(f'📥 Datos recibidos - faceDescriptor: {"Presente" if face_descriptor else "Nulo"}')
     if face_descriptor:
         print(f'   Longitud del descriptor: {len(face_descriptor)}')
+    if photoData:
+        print(f'   Datos de foto: {photoData[:50]}...')
 
     if not all([nombre, apellido1, id_sucursal, puesto_name]):
         return jsonify({'success': False, 'message': 'Faltan campos obligatorios.'}), 400
@@ -358,17 +361,22 @@ def registrar_empleado_real():
             return jsonify({'success': False, 'message': 'Puesto no encontrado.'}), 400
         id_puestos = puesto_row[0]
 
-        # Contraseña por defecto
-        contraseña = '1234'
+        # Contraseña del formulario
+        contraseña = data.get('contrasena', '1234')
 
-        # Preparar descriptor facial como JSON
+        # Preparar fotoperfil: guardar descriptor y foto separados por delimitador
         import json
-        fotoperfil = json.dumps(face_descriptor) if face_descriptor else None
+        if face_descriptor:
+            fotoperfil = json.dumps(face_descriptor)
+            if photoData:
+                fotoperfil += '|||DELIMITER|||' + photoData
+        else:
+            fotoperfil = photoData if photoData else None
 
         sql = """
         INSERT INTO empleados
         (id_empleado, fotoperfil, nombre, apellido1, apellido2, hora_comida_entrada, hora_comida_salida,
-         hora_entrada_puesto, hora_salida_puesto, id_puestos, id_sucursal, contraseña)
+         hora_entrada_puesto, hora_salida_puesto, id_puestos, id_sucursal, contrasena)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
         val = (id_empleado, fotoperfil, nombre, apellido1, apellido2 or None, hora_comida_entrada or None,
@@ -394,7 +402,19 @@ def get_empleados_facial():
     mycursor = mydb.cursor(dictionary=True)
     try:
         mycursor.execute("SELECT id_empleado, nombre, fotoperfil FROM empleados WHERE fotoperfil IS NOT NULL")
-        empleados = mycursor.fetchall()
+        empleados_raw = mycursor.fetchall()
+
+        empleados = []
+        for emp in empleados_raw:
+            # Extraer el descriptor del fotoperfil
+            if emp['fotoperfil']:
+                descriptor = emp['fotoperfil'].split('|||DELIMITER|||')[0] if '|||DELIMITER|||' in emp['fotoperfil'] else emp['fotoperfil']
+                empleados.append({
+                    'id_empleado': emp['id_empleado'],
+                    'nombre': emp['nombre'],
+                    'fotoperfil': descriptor
+                })
+
         return jsonify({'success': True, 'empleados': empleados})
     except mysql.connector.Error as err:
         return jsonify({'success': False, 'message': f'Error DB: {err.msg}'}), 500
@@ -529,6 +549,7 @@ def get_empleado_detalle(empleado_id):
             e.hora_comida_salida,
             e.id_puestos,
             e.id_sucursal,
+            e.fotoperfil,
             p.nombre_puestos as puesto_nombre,
             s.nombre as sucursal_nombre
         FROM empleados e
@@ -541,6 +562,31 @@ def get_empleado_detalle(empleado_id):
         empleado = mycursor.fetchone()
 
         if empleado:
+            # Handle fotoperfil - extraer imagen si está presente
+            fotoperfil_data = None
+            if empleado['fotoperfil']:
+                fotoperfil_str = empleado['fotoperfil']
+                if isinstance(fotoperfil_str, str):
+                    # Si contiene delimitador, tomar la parte de imagen (después del delimitador)
+                    if '|||DELIMITER|||' in fotoperfil_str:
+                        parts = fotoperfil_str.split('|||DELIMITER|||')
+                        if len(parts) > 1:
+                            image_part = parts[1]
+                            if image_part.startswith('data:image'):
+                                fotoperfil_data = image_part
+                    # Si es solo imagen data:image, devolverla
+                    elif fotoperfil_str.startswith('data:image'):
+                        fotoperfil_data = fotoperfil_str
+                    # Si no es imagen, no devolver nada (es descriptor)
+                try:
+                    # For legacy BLOB data, encode to base64 image URL
+                    fotoperfil_bytes = bytes(empleado['fotoperfil'])
+                    fotoperfil_b64 = base64.b64encode(fotoperfil_bytes).decode('utf-8')
+                    fotoperfil_data = f"data:image/jpeg;base64,{fotoperfil_b64}"
+                except Exception as e:
+                    # If encoding fails, skip
+                    print(f"Error encoding fotoperfil: {e}")
+
             return jsonify({
                 'success': True,
                 'empleado': {
@@ -555,7 +601,8 @@ def get_empleado_detalle(empleado_id):
                     'id_puesto': empleado['id_puestos'],
                     'puesto': empleado['puesto_nombre'],
                     'id_sucursal': empleado['id_sucursal'],
-                    'sucursal': empleado['sucursal_nombre']
+                    'sucursal': empleado['sucursal_nombre'],
+                    'fotoperfil': fotoperfil_data
                 }
             })
         else:
@@ -729,7 +776,14 @@ def get_empleado_facial_actual():
         empleado = mycursor.fetchone()
 
         if empleado:
-            return jsonify({'success': True, 'empleado': empleado})
+            # Extraer el descriptor del fotoperfil (parámetro antes de delimitador)
+            descriptor = empleado['fotoperfil'].split('|||DELIMITER|||')[0] if '|||DELIMITER|||' in empleado['fotoperfil'] else empleado['fotoperfil']
+            empleado_result = {
+                'id_empleado': empleado['id_empleado'],
+                'nombre': empleado['nombre'],
+                'fotoperfil': descriptor  # Solo el descriptor para reconocimiento facial
+            }
+            return jsonify({'success': True, 'empleado': empleado_result})
         else:
             return jsonify({'success': False, 'message': 'Empleado no encontrado o sin datos faciales.'}), 404
 

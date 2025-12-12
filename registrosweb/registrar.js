@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       nombre: document.getElementById("nombre").value,
       apellidoP: document.getElementById("apellidoP").value,
       apellidoM: document.getElementById("apellidoM").value,
+      contrasena: document.getElementById("contrasena").value,
       sucursal: sucursalSelect.value,
       puesto: puestoSelect.value,
       horaEntrada: document.getElementById("horaEntrada").value,
@@ -58,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // CÁMARA Y CAPTURA DE FOTO
   // --------------------------
   let faceDescriptor = null;
+  let photoData = null;
   let modelsLoaded = false;
 
   // Inicializar cámara
@@ -165,7 +167,9 @@ document.addEventListener("DOMContentLoaded", () => {
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
       // Mostrar preview y ocultar video
-      preview.src = canvas.toDataURL('image/jpeg', 0.8);
+      const imageData = canvas.toDataURL('image/jpeg', 0.8);
+      preview.src = imageData;
+      photoData = imageData;
       preview.style.display = 'block';
       video.style.display = 'none';
 
@@ -352,7 +356,8 @@ document.addEventListener("DOMContentLoaded", () => {
       horaSalida: document.getElementById("horaSalida").value,
       comidaEntrada: document.getElementById("comidaEntrada").value,
       comidaSalida: document.getElementById("comidaSalida").value,
-      faceDescriptor: faceDescriptor ? Array.from(faceDescriptor) : null  // Convertir a array para JSON
+      faceDescriptor: faceDescriptor ? Array.from(faceDescriptor) : null,  // Convertir a array para JSON
+      photoData: photoData  // Añadir datos de la foto
     };
 
     console.log('📤 Enviando datos al backend:', {
@@ -383,6 +388,7 @@ document.addEventListener("DOMContentLoaded", () => {
         preview.style.display = 'none';
         video.style.display = 'block';
         faceDescriptor = null;  // Reset descriptor
+        photoData = null;   // Reset photo
         clearFormData();  // Limpiar datos guardados en localStorage
       } else {
         alert('Error: ' + result.message);

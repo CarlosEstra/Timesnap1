@@ -3,7 +3,7 @@ import mysql.connector
 # --- CONFIGURACIÓN Y CONEXIÓN A MYSQL ---
 DB_CONFIG = {
     'user': 'root',
-    'password': '1234',
+    'password': '140223',
     'host': 'localhost',
     'database': 'timesnapbd'
 }

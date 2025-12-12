@@ -1,6 +1,6 @@
 body {
     /* font-family now handled by global.css */
-    background: #f4f4f4;
+    background: #020a3a;
     margin: 0;
     padding: 20px;
     display: flex;
@@ -14,9 +14,9 @@ body {
     border-radius: 10px;
     padding-bottom: 80px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    overflow: hidden;
+    overflow: visible;
     margin-bottom: 50px;
-    
+
 }
 
 .header {
@@ -34,7 +34,10 @@ body {
 .profile-pic {
     width: 110px;
     height: 110px;
-    background: #fdfdfd;
+    background-color: #fdfdfd;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     border-radius: 50%;
     margin-left: 130px;
     position: absolute;
