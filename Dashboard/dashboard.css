@@ -13,7 +13,7 @@ body {
     height: 100%;
     border-radius: 10px;
     padding-bottom: 80px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 8px rgba(255, 255, 255, 0.2);
     overflow: visible;
     margin-bottom: 50px;
 

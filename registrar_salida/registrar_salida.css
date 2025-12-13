@@ -4,12 +4,13 @@
   align-items: center;
   text-align: center;
   /* font-family now handled by global.css */
+  
   background-color: #020a3a;
   width: 400px;
   height: 700px;
   margin: 2rem auto;
   border-radius: 10px;
-  box-shadow: 0 0 10px #ccc;
+  box-shadow: 0 0 10px #ffffff;
   padding: 20px;
   border-color:#6b2eff;
   position: relative;
@@ -26,7 +27,7 @@
   align-items: center;
   background-color: #007bff;
   margin-top: -20px;
-  color: white;
+  color: rgb(255, 255, 255);
   width: 100%;
   height: 60px;
   padding: 10px 50px 0px 70px;
